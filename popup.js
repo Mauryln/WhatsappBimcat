@@ -1,11 +1,19 @@
 document.getElementById("extractBtn").addEventListener("click", async () => {
   try {
-    const [tab] = await chrome.tabs.query({ active: true, currentWindow: true });
+    // Mostrar todas las pestañas abiertas para depuración
+    const allTabs = await chrome.tabs.query({});
+    console.log("TODAS LAS PESTAÑAS ABIERTAS:", allTabs);
 
-    if (!tab.url?.startsWith("https://web.whatsapp.com/")) {
+    // Buscar cualquier pestaña de WhatsApp Web abierta
+    const tabs = await chrome.tabs.query({ url: "*://web.whatsapp.com/*" });
+    console.log("TABS DE WHATSAPP WEB ENCONTRADAS:", tabs);
+
+    if (!tabs.length) {
       alert("⚠️ Abre WhatsApp Web y carga un grupo primero.");
       return;
     }
+
+    const tab = tabs[0];
 
     await chrome.scripting.executeScript({
       target: { tabId: tab.id },

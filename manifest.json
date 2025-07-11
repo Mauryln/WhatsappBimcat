@@ -11,8 +11,8 @@
     "storage"
   ],
   "host_permissions": [
-    "https://web.whatsapp.com/",
-    "https://localhost/3000/"
+    "https://web.whatsapp.com/*",
+    "http://localhost:3000/*"
   ],
   "action": {
     "default_icon": {
